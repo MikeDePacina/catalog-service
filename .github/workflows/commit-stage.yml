@@ -1,6 +1,5 @@
 name: commit stage
-on: [push]
-
+on: [push, workflow_dispatch]
 jobs:
   build:
     name: build and test
