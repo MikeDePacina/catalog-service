@@ -15,6 +15,9 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping
+    public Iterable<Book> getBooks(){ return bookService.viewBookList(); }
+
     @GetMapping("{isbn}")
     public Book getByIsbn(@PathVariable String isbn){
         return bookService.viewBookDetails(isbn);
