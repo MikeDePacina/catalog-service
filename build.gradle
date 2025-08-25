@@ -19,7 +19,7 @@ repositories {
 }
 
 configurations {
-    compileOnly{
+    compileOnly {
         extendsFrom annotationProcessor
     }
 }
@@ -62,4 +62,16 @@ tasks.named('test') {
 
 bootRun {
     systemProperty 'spring.profiles.active', 'testdata'
+}
+
+bootBuildImage {
+    imageName = "${project.name}"
+
+    docker {
+        publishRegistry {
+            username = project.findProperty("registryUsername")
+            password = project.findProperty("registryToken")
+            url = project.findProperty("registryUrl")
+        }
+    }
 }
