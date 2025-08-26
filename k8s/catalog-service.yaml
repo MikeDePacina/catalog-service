@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: catalog-service
+  name: catalog-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalog-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+      - image: catalog-service
+        name: catalog-service
+        imagePullPolicy: Never
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 5"]
+        ports:
+        - containerPort: 9001
+        env:
+          - name: BPL_JVM_THREAD_COUNT
+            value: "50"
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://polar-postgres/polardb_catalog
+          - name: SPRING_PROFILES_ACTIVE
+            value: testdata
+        resources: {}
+status: {}
